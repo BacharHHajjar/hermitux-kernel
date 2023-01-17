@@ -652,6 +652,8 @@ void syscall_handler(struct state *s)
 			break;
 #endif
 
+
+
 #ifndef DISABLE_SYS_UNLINK
 		case 87:
 			/* unlink */
@@ -692,6 +694,20 @@ void syscall_handler(struct state *s)
 		case 99:
 			/* sysinfo */
 			s->rax = sys_sysinfo((void *)s->rdi);
+			break;
+#endif
+
+#ifndef DISABLE_SYS_TRUNCATE
+		case 100:
+			/* truncate */
+			s->rax = sys_truncate((const char*)s->rdi, s->rsi);
+			break;
+#endif
+
+#ifndef DISABLE_SYS_FTRUNCATE
+		case 101:
+			/* ftruncate */
+			s->rax = sys_truncate(s->rdi, s->rsi);
 			break;
 #endif
 
